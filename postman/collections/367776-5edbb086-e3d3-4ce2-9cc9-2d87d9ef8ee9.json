@@ -1256,8 +1256,7 @@
 								},
 								{
 									"key": "nat",
-									"value": "gb",
-									"type": "text"
+									"value": "gb"
 								}
 							]
 						}
