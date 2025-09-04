@@ -1,0 +1,1306 @@
+{
+	"info": {
+		"_postman_id": "367776-5edbb086-e3d3-4ce2-9cc9-2d87d9ef8ee9",
+		"name": "APIs For Everyone",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Generate Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "95cd74ef-5310-442d-bb0d-f6ca74aeeaff",
+								"exec": [
+									"if (pm.response.code == 200){",
+									"    console.log('Successfully obtained Access Token')",
+									"    const response = pm.response.json()",
+									"    var access_token = response['access_token']",
+									"    console.info('Setting Access Token(bearerToken) in Postman environment')",
+									"    pm.environment.set(\"central_token\", access_token);",
+									"    console.log('You are now ready & authenticated to make API calls to your new HPE Aruba Networking Central account')",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "367776-9288fab3-5e75-4cbd-bf49-36b2623c541c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "client_credentials",
+									"type": "text",
+									"uuid": "7124b487-d0e5-4b7c-94e8-df109b84ee51"
+								},
+								{
+									"key": "client_id",
+									"value": "{{client_id}}",
+									"type": "text",
+									"uuid": "cc08ec12-b058-4b3d-8721-6392f3922b92"
+								},
+								{
+									"key": "client_secret",
+									"value": "{{client_secret}}",
+									"type": "text",
+									"uuid": "81927291-cf5b-47fd-a436-251df5b4df50"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://sso.common.cloud.hpe.com/as/token.oauth2",
+							"protocol": "https",
+							"host": [
+								"sso",
+								"common",
+								"cloud",
+								"hpe",
+								"com"
+							],
+							"path": [
+								"as",
+								"token.oauth2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-0faabf93-a600-4cca-b485-2b1ece36a288"
+		},
+		{
+			"name": "Sites",
+			"item": [
+				{
+					"name": "List Sites",
+					"id": "367776-3b14b999-6d0f-4768-bfa6-776b1a77afc6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/sites",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Site",
+					"id": "367776-f6ceed41-dee4-45c7-b9c9-a90ea8f27ed1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"SeattleHQ\",\n    \"city\": \"Seattle\",\n    \"state\": \"Washington\",\n    \"country\": \"United States\",\n    \"zipcode\": \"98134\",\n    \"address\": \"2401 Utah Ave S\",\n    \"timezone\": {\n        \"rawOffset\": -28800000,\n        \"timezoneId\": \"America/Los_Angeles\",\n        \"timezoneName\": \"Pacific Standard Time\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/sites",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"sites"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Global ID",
+					"id": "367776-8c6c004c-9c8c-4fbe-b61a-040f62370469",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/hierarchy?scopeType=site&scopeId=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"hierarchy"
+							],
+							"query": [
+								{
+									"key": "scopeType",
+									"value": "site"
+								},
+								{
+									"key": "scopeId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-6d0af699-b8f4-4589-ba1f-539f2fc11667"
+		},
+		{
+			"name": "VLANs",
+			"item": [
+				{
+					"name": "List VLANs in Library",
+					"id": "367776-843d0176-39d4-4b05-9a6e-c18f1acbd55c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/layer2-vlan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"layer2-vlan"
+							],
+							"query": [
+								{
+									"key": "view_type",
+									"value": "LOCAL",
+									"disabled": true
+								},
+								{
+									"key": "scope_id",
+									"value": "42598981779",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create VLAN in Library",
+					"id": "367776-87fbc800-a02d-4c49-962a-74f132fda155",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"l2-vlan\": [\n        {\n            \"vlan\": 5,\n            \"enable\": true,\n            \"description\": \"api4everyone\"\n            \n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/layer2-vlan",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"layer2-vlan"
+							],
+							"query": [
+								{
+									"key": "object_type",
+									"value": "LOCAL",
+									"disabled": true
+								},
+								{
+									"key": "scope_id",
+									"value": "44120773658",
+									"disabled": true
+								},
+								{
+									"key": "persona",
+									"value": "LOCAL",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Map VLAN to Site",
+					"id": "367776-c2b5a031-dfbe-4803-92dc-d33bc508c128",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"scope-map\": [\n    {\n      \"scope-name\": \"44412250081\",\n      \"persona\": \"CAMPUS_AP\",\n      \"resource\": \"layer2-vlan/5\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/scope-maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"scope-maps"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-e24be0f0-c77e-4339-96d4-2bc8c26c7cd3"
+		},
+		{
+			"name": "WLAN",
+			"item": [
+				{
+					"name": "List WLANs",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13e1a1ac-f8a0-43be-bbaa-d09a4f4a7635",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "367776-bb924cb1-2353-4af9-adfe-ff341b66a170",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"wlan-ssids"
+							],
+							"query": [
+								{
+									"key": "view_type",
+									"value": "LOCAL",
+									"disabled": true
+								},
+								{
+									"key": "scope_id",
+									"value": "44120773658",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List WLAN Clients",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "13e1a1ac-f8a0-43be-bbaa-d09a4f4a7635",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "367776-781ed0f9-e192-48c2-8c3f-c6677ab3a3e6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-monitoring/v1alpha1/clients?site-id=197670139",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-monitoring",
+								"v1alpha1",
+								"clients"
+							],
+							"query": [
+								{
+									"key": "view_type",
+									"value": "LOCAL",
+									"disabled": true
+								},
+								{
+									"key": "site-id",
+									"value": "197670139"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create WLAN",
+					"id": "367776-4a93ce11-1f9a-4801-9095-e9598b6f45ce",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wlan-ssid\": [\n    {\n      \"essid\": {\n        \"name\": \"Workshop\"\n      },\n      \"type\": \"EMPLOYEE\",\n      \"vlan-id-range\": [\n        \"5\"\n      ],\n      \"forward-mode\": \"FORWARD_MODE_BRIDGE\",\n      \"ssid\": \"Workshop\",\n      \"opmode\": \"WPA2_PERSONAL\",\n      \"personal-security\": {\n        \"passphrase-format\": \"STRING\",\n        \"wpa-passphrase\": \"Welcome123%\"\n      }\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"wlan-ssids"
+							],
+							"query": [
+								{
+									"key": "object_type",
+									"value": "LOCAL",
+									"disabled": true
+								},
+								{
+									"key": "scope_id",
+									"value": "44412250081",
+									"disabled": true
+								},
+								{
+									"key": "persona",
+									"value": "CAMPUS_AP",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create WLAN Copy",
+					"id": "367776-3b9f728a-5c2f-4798-8d54-32edf90358b9",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"wlan-ssid\": [\n    {\n      \"essid\": {\n        \"name\": \"Workshop\"\n      },\n      \"type\": \"EMPLOYEE\",\n      \"vlan-id-range\": [\n        \"5\"\n      ],\n      \"forward-mode\": \"FORWARD_MODE_BRIDGE\",\n      \"ssid\": \"Workshop\",\n      \"opmode\": \"WPA2_PERSONAL\",\n      \"personal-security\": {\n        \"passphrase-format\": \"STRING\",\n        \"wpa-passphrase\": \"Welcome123%\"\n      }\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"wlan-ssids"
+							],
+							"query": [
+								{
+									"key": "object_type",
+									"value": "LOCAL",
+									"disabled": true
+								},
+								{
+									"key": "scope_id",
+									"value": "44412250081",
+									"disabled": true
+								},
+								{
+									"key": "persona",
+									"value": "CAMPUS_AP",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-76a4a172-31c9-44f2-bbdf-e3f299e9761f"
+		},
+		{
+			"name": "Devices",
+			"item": [
+				{
+					"name": "List Devices",
+					"id": "367776-ff6908b4-61e0-4645-bfc1-304e9444a288",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-monitoring/v1alpha1/devices",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-monitoring",
+								"v1alpha1",
+								"devices"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Devices by Filter",
+					"id": "367776-bbe914a4-43c8-4fe8-958c-46c087a4c729",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-monitoring/v1alpha1/device-inventory?filter=deviceType eq 'ACCESS_POINT'",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-monitoring",
+								"v1alpha1",
+								"device-inventory"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "deviceType eq 'ACCESS_POINT'"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-478d422a-603e-41a2-93d6-49191f038528"
+		},
+		{
+			"name": "GLP",
+			"item": [
+				{
+					"name": "Authentication",
+					"item": [
+						{
+							"name": "Generate GLP Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "556c684c-d7f1-4d4b-a1af-3aae48e10477",
+										"exec": [
+											"if (pm.response.code == 200){",
+											"    console.log('Successfully obtained Access Token')",
+											"    const response = pm.response.json()",
+											"    var access_token = response['access_token']",
+											"    console.info('Setting Access Token(bearerToken) in Postman environment')",
+											"    pm.environment.set(\"glp_token\", access_token);",
+											"    console.log('You are now ready & authenticated to make API calls to your new HPE Aruba Networking Central account')",
+											"}"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "367776-a688e9b6-9cee-4435-bd0e-870f408b2e60",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text",
+											"uuid": "f311797f-9eaf-4a70-95d0-c3a9e5779724"
+										},
+										{
+											"key": "client_id",
+											"value": "{{glp_client_id}}",
+											"type": "text",
+											"uuid": "0ab21156-5050-441f-88e9-504d7b2b16b8"
+										},
+										{
+											"key": "client_secret",
+											"value": "{{glp_secret}}",
+											"type": "text",
+											"uuid": "0978df67-daba-48f3-ba74-4cb779605859"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://sso.common.cloud.hpe.com/as/token.oauth2",
+									"protocol": "https",
+									"host": [
+										"sso",
+										"common",
+										"cloud",
+										"hpe",
+										"com"
+									],
+									"path": [
+										"as",
+										"token.oauth2"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "367776-591a0ce3-f4e4-4d0c-b825-bff7a99d2f1f"
+				},
+				{
+					"name": "Devices",
+					"item": [
+						{
+							"name": "List Devices",
+							"id": "367776-23dd8b9c-9235-48e2-95a4-299ae29b0174",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://global.api.greenlake.hpe.com/devices/v1/devices",
+									"protocol": "https",
+									"host": [
+										"global",
+										"api",
+										"greenlake",
+										"hpe",
+										"com"
+									],
+									"path": [
+										"devices",
+										"v1",
+										"devices"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Device",
+							"id": "367776-11093285-00f2-4f9f-95a7-10cbd9b18fd5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://global.api.greenlake.hpe.com/devices/v1/devices/:id",
+									"protocol": "https",
+									"host": [
+										"global",
+										"api",
+										"greenlake",
+										"hpe",
+										"com"
+									],
+									"path": [
+										"devices",
+										"v1",
+										"devices",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Device",
+							"id": "367776-9e91d5d0-ed2f-4a1b-a8ae-fbfff37db5f3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"subscription\": [\n        {\n            \"id\": \"string\"\n        }\n    ],\n    \"application\": {\n        \"id\": \"string\"\n    },\n    \"region\": \"string\",\n    \"tenantPlatformCustomerId\": \"string\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://global.api.greenlake.hpe.com/devices/v1/device",
+									"protocol": "https",
+									"host": [
+										"global",
+										"api",
+										"greenlake",
+										"hpe",
+										"com"
+									],
+									"path": [
+										"devices",
+										"v1",
+										"device"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "367776-eba279d4-add6-472a-8963-e1338dca5177"
+				},
+				{
+					"name": "Subscriptions",
+					"item": [
+						{
+							"name": "List subscriptions",
+							"id": "367776-c83b729e-bd43-480b-9b5a-21b2e9155b8c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://global.api.greenlake.hpe.com/subscriptions/v1/subscriptions",
+									"protocol": "https",
+									"host": [
+										"global",
+										"api",
+										"greenlake",
+										"hpe",
+										"com"
+									],
+									"path": [
+										"subscriptions",
+										"v1",
+										"subscriptions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Show Subscription",
+							"id": "367776-55a3b1cb-1257-40e0-8a1f-e8671acc8a9f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://global.api.greenlake.hpe.com/subscriptions/v1/subscriptions/:id",
+									"protocol": "https",
+									"host": [
+										"global",
+										"api",
+										"greenlake",
+										"hpe",
+										"com"
+									],
+									"path": [
+										"subscriptions",
+										"v1",
+										"subscriptions",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "14649fbc-eb56-50b1-9e0e-e6abf5b443db"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "367776-b0c61b7e-fb13-444c-9048-cbeecae9cb05"
+				}
+			],
+			"id": "367776-1d9e5800-6e4d-444f-8747-83eddac24f22",
+			"description": "This folder includes API requests using the GLP APIs. These API require a client_id and client_secret for GLP.",
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{glp_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "70671f43-3c78-43ab-b434-96b8941e64d2",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bfcd6663-83e5-4091-b142-5495c0097236",
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Utils",
+			"item": [
+				{
+					"name": "WLAN",
+					"item": [
+						{
+							"name": "Update WLAN PSK",
+							"id": "367776-38ff947d-d776-47b2-ac91-f12319c8a21e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"opmode\": \"WPA3_SAE\",\n    \"personal-security\": {\n        \"passphrase-format\": \"STRING\",\n        \"wpa-passphrase\": \"d733013e0b\"\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids/Test1111?object_type=LOCAL&scope_id=42598981779&persona=CAMPUS_AP",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"network-config",
+										"v1alpha1",
+										"wlan-ssids",
+										"Test1111"
+									],
+									"query": [
+										{
+											"key": "object_type",
+											"value": "LOCAL"
+										},
+										{
+											"key": "scope_id",
+											"value": "42598981779"
+										},
+										{
+											"key": "persona",
+											"value": "CAMPUS_AP"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Description Only",
+							"id": "367776-8b3df1fa-febd-4ccf-a669-10486ea9da2b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"description\": \"Mercury8855\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids/Test1111?object_type=LOCAL&scope_id=42598981779&persona=CAMPUS_AP",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"network-config",
+										"v1alpha1",
+										"wlan-ssids",
+										"Test1111"
+									],
+									"query": [
+										{
+											"key": "object_type",
+											"value": "LOCAL"
+										},
+										{
+											"key": "scope_id",
+											"value": "42598981779"
+										},
+										{
+											"key": "persona",
+											"value": "CAMPUS_AP"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change VLAN",
+							"id": "367776-0b28e28b-524d-4f24-b2b5-90f55be14aa5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"vlan-selector\": \"VLAN_RANGES\",\n    \"vlan-id-range\": [\n        \"20\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids/Test1111?object_type=LOCAL&scope_id=42598981779&persona=CAMPUS_AP",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"network-config",
+										"v1alpha1",
+										"wlan-ssids",
+										"Test1111"
+									],
+									"query": [
+										{
+											"key": "object_type",
+											"value": "LOCAL"
+										},
+										{
+											"key": "scope_id",
+											"value": "42598981779"
+										},
+										{
+											"key": "persona",
+											"value": "CAMPUS_AP"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Enable SSID",
+							"id": "367776-21847f62-b121-4b92-afde-ced7315ab411",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"enable\": true\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/network-config/v1alpha1/wlan-ssids/Test1111?object_type=LOCAL&scope_id=42598981779&persona=CAMPUS_AP",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"network-config",
+										"v1alpha1",
+										"wlan-ssids",
+										"Test1111"
+									],
+									"query": [
+										{
+											"key": "object_type",
+											"value": "LOCAL"
+										},
+										{
+											"key": "scope_id",
+											"value": "42598981779"
+										},
+										{
+											"key": "persona",
+											"value": "CAMPUS_AP"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "367776-0f57dcf0-5ff1-4ee4-8dc3-11ae7adcae59"
+				},
+				{
+					"name": "Delete Site",
+					"id": "367776-cb39ffe9-0503-4d20-9f9f-a8ce59da3979",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "/network-config/v1alpha1/sites?scope-id=42598981779",
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"sites"
+							],
+							"query": [
+								{
+									"key": "scope-id",
+									"value": "42598981779",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Set Library ID - Debug API -",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f7b57aa-ed1b-43db-a75b-f9b9e0f715a3",
+								"exec": [
+									"// if (pm.response.code == 200){",
+									"//     console.log('Successfully obtained Global/Library ID')",
+									"//     const response = pm.response.json()",
+									"//     var access_token = response['access_token']",
+									"//     console.info('Setting Global/Library ID(globalId) in Postman environment')",
+									"//     pm.environment.set(\"globalId\", access_token);",
+									"    ",
+									"// }",
+									"if (pm.response.code == 200){",
+									"    const response = pm.response.json()",
+									"    const devices = response['devices']",
+									"    for (const device of devices) {",
+									"        if (device.type == \"GLOBAL\") {",
+									"            console.log(\"globalId set to: \", device.scope_id)",
+									"            pm.environment.set(\"globalId\", device.scope_id);",
+									"        }",
+									"    }",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "367776-1e3d7b88-20de-467b-889d-e60ea2d42787",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cnxdevice/v1/debug/get_scope_data",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cnxdevice",
+								"v1",
+								"debug",
+								"get_scope_data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Debug API",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2f7b57aa-ed1b-43db-a75b-f9b9e0f715a3",
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "367776-8bc99c41-4333-4018-9137-2fb27675b67e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/cnxdevice/v1/debug/get_scope_data",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"cnxdevice",
+								"v1",
+								"debug",
+								"get_scope_data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "View Hierarchy",
+					"id": "367776-465152a1-a3f4-4439-8f90-f6aac5b61cc3",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "List scope-maps",
+					"id": "367776-ff9669ad-4d1d-4026-a530-1c89b4ef1a15",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/scope-maps",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"scope-maps"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Policies",
+					"id": "367776-1b6c1cfe-7109-426b-819c-0e0279df4167",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/network-config/v1alpha1/policies",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"network-config",
+								"v1alpha1",
+								"policies"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-f9e8f9a8-25ce-4f94-892a-217dc11ba9f9"
+		},
+		{
+			"name": "Random User API",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "367776-0ba6dd27-de7f-4290-8514-db25f2d855c8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://randomuser.me/api/?results=100&seed=workshop&nat=gb",
+							"protocol": "https",
+							"host": [
+								"randomuser",
+								"me"
+							],
+							"path": [
+								"api",
+								""
+							],
+							"query": [
+								{
+									"key": "results",
+									"value": "100"
+								},
+								{
+									"key": "seed",
+									"value": "workshop"
+								},
+								{
+									"key": "nat",
+									"value": "gb",
+									"type": "text"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-31b62380-fbee-43f6-bac3-d04d844a0e21",
+			"description": "This API will generate random user data.\n\nSee [randomuser.me docs](https://randomuser.me/documentation)"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{central_token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "0639f687-f313-4c38-b4c8-4c424e0fe135",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "af388c17-6bac-4c7f-9016-82a64a577175",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
