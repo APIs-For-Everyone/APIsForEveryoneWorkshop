@@ -1249,6 +1249,11 @@
 			],
 			"id": "367776-31b62380-fbee-43f6-bac3-d04d844a0e21",
 			"description": "This API will generate random user data.\n\nSee [randomuser.me docs](https://randomuser.me/documentation)"
+		},
+		{
+			"name": "Monitoring",
+			"item": [],
+			"id": "367776-ad7e8c98-4546-4241-b5c5-477b32213d76"
 		}
 	],
 	"auth": {
