@@ -1159,51 +1159,6 @@
 			"id": "367776-f9e8f9a8-25ce-4f94-892a-217dc11ba9f9"
 		},
 		{
-			"name": "Random User API",
-			"item": [
-				{
-					"name": "Request Random Users",
-					"id": "367776-0ba6dd27-de7f-4290-8514-db25f2d855c8",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "https://randomuser.me/api/?results=100&seed=workshop&nat=gb",
-							"protocol": "https",
-							"host": [
-								"randomuser",
-								"me"
-							],
-							"path": [
-								"api",
-								""
-							],
-							"query": [
-								{
-									"key": "results",
-									"value": "100"
-								},
-								{
-									"key": "seed",
-									"value": "workshop"
-								},
-								{
-									"key": "nat",
-									"value": "gb"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"id": "367776-31b62380-fbee-43f6-bac3-d04d844a0e21",
-			"description": "This API will generate random user data.\n\nSee [randomuser.me docs](https://randomuser.me/documentation)"
-		},
-		{
 			"name": "Monitoring",
 			"item": [
 				{
@@ -1279,6 +1234,51 @@
 				}
 			],
 			"id": "367776-ad7e8c98-4546-4241-b5c5-477b32213d76"
+		},
+		{
+			"name": "Random User API",
+			"item": [
+				{
+					"name": "Request Random Users",
+					"id": "367776-0ba6dd27-de7f-4290-8514-db25f2d855c8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://randomuser.me/api/?results=100&seed=workshop&nat=gb",
+							"protocol": "https",
+							"host": [
+								"randomuser",
+								"me"
+							],
+							"path": [
+								"api",
+								""
+							],
+							"query": [
+								{
+									"key": "results",
+									"value": "100"
+								},
+								{
+									"key": "seed",
+									"value": "workshop"
+								},
+								{
+									"key": "nat",
+									"value": "gb"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "367776-31b62380-fbee-43f6-bac3-d04d844a0e21",
+			"description": "This API will generate random user data.\n\nSee [randomuser.me docs](https://randomuser.me/documentation)"
 		}
 	],
 	"auth": {
