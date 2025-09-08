@@ -1252,7 +1252,20 @@
 		},
 		{
 			"name": "Monitoring",
-			"item": [],
+			"item": [
+				{
+					"name": "New Request",
+					"id": "367776-c5ab1185-db4c-4949-a9ee-048e46ba0277",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			],
 			"id": "367776-ad7e8c98-4546-4241-b5c5-477b32213d76"
 		}
 	],
