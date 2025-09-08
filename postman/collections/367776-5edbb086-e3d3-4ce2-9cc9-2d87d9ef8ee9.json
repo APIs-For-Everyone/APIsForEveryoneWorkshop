@@ -1254,7 +1254,7 @@
 			"name": "Monitoring",
 			"item": [
 				{
-					"name": "New Request",
+					"name": "Get Workshop WLAN",
 					"id": "367776-c5ab1185-db4c-4949-a9ee-048e46ba0277",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
