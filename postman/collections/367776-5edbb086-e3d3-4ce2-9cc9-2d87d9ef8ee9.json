@@ -445,7 +445,7 @@
 					"response": []
 				},
 				{
-					"name": "Map VLAN to Site Copy",
+					"name": "Map WLAN to Site",
 					"id": "367776-93c0ba60-b1a2-46d4-83b9-c895fd632720",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
