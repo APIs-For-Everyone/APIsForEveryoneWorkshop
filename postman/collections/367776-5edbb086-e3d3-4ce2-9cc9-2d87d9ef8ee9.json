@@ -1231,7 +1231,7 @@
 					"response": []
 				},
 				{
-					"name": "List WLAN Clients",
+					"name": "List Clients Connected",
 					"event": [
 						{
 							"listen": "test",
